@@ -1,4 +1,5 @@
 import requests
+import json
 
 # <editor-fold desc="Poe.Ninja Api Endpoints">
 poeNinjaEndpoints = {'currency': 'https://api.poe.ninja/api/Data/GetCurrencyOverview',
@@ -161,6 +162,7 @@ gggEndpoints = {'public stash': 'http://api.pathofexile.com/public-stash-tabs',
                 'leagues': 'http://api.pathofexile.com/leagues',
                 'league rules': 'http://api.pathofexile.com/league-rules',
                 'ladder': 'http://api.pathofexile.com/ladders',
+                'stash': 'https://www.pathofexile.com/character-window/get-stash-items',
                 'character gear': 'https://www.pathofexile.com/character-window/get-items',
                 'character jewels': 'https://www.pathofexile.com/character-window/get-passive-skills'
                 }
@@ -169,20 +171,41 @@ gggEndpoints = {'public stash': 'http://api.pathofexile.com/public-stash-tabs',
 # <editor-fold desc="GGG Functions">
 
 
-def GGGQuery(endpointType='public stash', params=None):
+def GGGQuery(endpointType='public stash', params=None, cookie=None):
     """Pass key from gggEndpoints and optional params to receive back the json for that endpoint."""
-    return requests.get(gggEndpoints[endpointType.lower()], params=params).json()
+    return requests.get(gggEndpoints[endpointType.lower()], params=params, cookies=cookie).json()
 
 
 def GGGGetPublicStashData(changeID=PoeNinjaGetNextID()):
     """Returns the most recent public stash json by default. a next_change_id can be passed optionally."""
     return GGGQuery('public stash', changeID)
+
+
+def GGGGetPlayerStash(league='Standard', accountName=None, tabs=1, tabIndex=None):
+    """Returns a json containing the specified stashIndex. tabs={0,1}: 0 means only specified stash, 1 means all.
+    tabIndex is optional. Passing tabs=1 and no tabIndex returns a json of all tabs on that league/account."""
+    params = {'league': league, 'accountName': accountName, 'tabs': tabs, 'tabIndex': tabIndex}
+    cookie = {'POESESSID': PlayerCookie()}
+    return GGGQuery(endpointType='stash', params=params, cookie=cookie)
 # </editor-fold>
 
 # <editor-fold desc="General Use Functions">
 
 
 def ExpectedValue(probabilities, values):
-    """Returns expected value (inner product) of two the values of two lists."""
+    """Returns expected value (inner product) of the values of two lists."""
     return sum(i * j for i, j in zip(probabilities, values)) if len(probabilities) == len(values) else 0
+
+
+def PlayerCookie(set=False, poesessid=None):
+    """Returns the player's POESESSID from secret.json. Optional flag to True to change the id stored in secret.json."""
+    if set:
+        with open("secret.json", 'w+', encoding='utf-8') as f:
+            data = {}
+            data["POESESSID"] = poesessid
+            json.dump(data, f, indent=4, sort_keys=True, ensure_ascii=False)
+    else:
+        with open("secret.json") as f:
+            data = json.load(f)
+            return data["POESESSID"]
 # </editor-fold>
