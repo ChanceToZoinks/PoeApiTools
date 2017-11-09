@@ -201,8 +201,7 @@ def PlayerCookie(set=False, poesessid=None):
     """Returns the player's POESESSID from secret.json. Optional flag to True to change the id stored in secret.json."""
     if set:
         with open("secret.json", 'w+', encoding='utf-8') as f:
-            data = {}
-            data["POESESSID"] = poesessid
+            data = {"POESESSID": poesessid}
             json.dump(data, f, indent=4, sort_keys=True, ensure_ascii=False)
     else:
         with open("secret.json") as f:
