@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 
 # <editor-fold desc="Poe.Ninja Api Endpoints">
 poeNinjaEndpoints = {'currency': 'https://api.poe.ninja/api/Data/GetCurrencyOverview',
@@ -171,9 +172,13 @@ gggEndpoints = {'public stash': 'http://api.pathofexile.com/public-stash-tabs',
 # <editor-fold desc="GGG Functions">
 
 
-def GGGQuery(endpointType='public stash', params=None, cookie=None):
-    """Pass key from gggEndpoints and optional params to receive back the json for that endpoint."""
-    return requests.get(gggEndpoints[endpointType.lower()], params=params, cookies=cookie).json()
+def GGGQuery(queryType='public stash', params=None, cookie=None, league=None):
+    """Pass key from gggEndpoints and optional params to receive back the json for that endpoint.
+    Params, cookie and league are optional. League is used for grabbing the ladder since it's a seperate url per league."""
+    if league is None:
+        return requests.get(gggEndpoints[queryType.lower()], params=params, cookies=cookie).json()
+    else:
+        return requests.get(gggEndpoints[queryType.lower()] + '/' + league, params=params, cookies=cookie).json()
 
 
 def GGGGetPublicStashData(changeID=PoeNinjaGetNextID()):
@@ -186,7 +191,23 @@ def GGGGetPlayerStash(league='Standard', accountName=None, tabs=1, tabIndex=None
     tabIndex is optional. Passing tabs=1 and no tabIndex returns a json of all tabs on that league/account."""
     params = {'league': league, 'accountName': accountName, 'tabs': tabs, 'tabIndex': tabIndex}
     cookie = {'POESESSID': PlayerCookie()}
-    return GGGQuery(endpointType='stash', params=params, cookie=cookie)
+    return GGGQuery(queryType='stash', params=params, cookie=cookie)
+
+
+def GGGGetLadderClassCount(league='Standard'):
+    classCount = {}
+    # 15000 possible on ladder divided by 200 gives 75. i * 200 is the offset we want so we end up at 14800 when i=74.
+    for i in range(0, 75):
+        r = GGGQuery(queryType='ladder', params={'limit': 200, 'offset': i * 200}, league=league)
+        for character in r['entries']:
+            if character['character']['class'] in classCount:
+                classCount[character['character']['class']] += 1
+            else:
+                classCount[character['character']['class']] = 1
+        time.sleep(2)
+    return classCount
+
+
 # </editor-fold>
 
 # <editor-fold desc="General Use Functions">
@@ -208,4 +229,7 @@ def PlayerCookie(set=False, poesessid=None):
         with open("secret.json") as f:
             data = json.load(f)
             return data["POESESSID"]
+
+def Unzip(dictionary):
+    return dictionary.keys(), dictionary.values()
 # </editor-fold>
