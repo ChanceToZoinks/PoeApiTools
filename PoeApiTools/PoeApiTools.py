@@ -228,7 +228,4 @@ def PlayerCookie(set=False, poesessid=None):
         with open("secret.json") as f:
             data = json.load(f)
             return data["POESESSID"]
-
-def Unzip(dictionary):
-    return dictionary.keys(), dictionary.values()
 # </editor-fold>

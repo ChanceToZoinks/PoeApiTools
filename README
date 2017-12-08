@@ -1,0 +1,2 @@
+Contains functions useful for interfacing with various Path of Exile related APIs. Some of the functions also do basic,
+reusable calculations and return values. Will eventually get around to updating this to be a full explanation.
