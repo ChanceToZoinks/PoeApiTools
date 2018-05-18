@@ -110,8 +110,8 @@ def PoeNinjaGetCurrencyComparison(currencyTypeNameA='Exalted Orb', numCurrencyA=
                                   currencyTypeNameB='Orb of Alteration', league='Standard'):
     """Returns the number of currency B you can get for the number of currency A you have.
     Example: you have 2 ex and want to know how many alterations that is so you pass exalted orb for A and alt for B."""
-    aChaos = float(PoeNinjaGetChaosEquiv(currencyTypeNameA, league))
-    bChaos = float(PoeNinjaGetChaosEquiv(currencyTypeNameB, league))
+    aChaos = float(PoeNinjaGetChaosEquiv(currencyTypeName=currencyTypeNameA, league=league))
+    bChaos = float(PoeNinjaGetChaosEquiv(currencyTypeName=currencyTypeNameB, league=league))
     return (aChaos/bChaos) * numCurrencyA
 
 

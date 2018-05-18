@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name = "PoEApiTools",
-    version = "0.1.0",
+    version = "0.2.0",
     author = "Gabriel Akers",
     author_email = "gabe.akers17@gmail.com",
     description = "Various tools to interface with and do basic calculations on PoE related APIs ",
