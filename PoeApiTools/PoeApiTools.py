@@ -3,7 +3,7 @@ import json
 import time
 
 # <editor-fold desc="Poe.Ninja Api Endpoints">
-poeNinjaEndpoints = {'currency': 'https://poe.ninja/standard/currency',
+poeNinjaEndpoints = {'currency': 'https://api.poe.ninja/api/Data/GetCurrencyOverview',
                      'map': 'https://api.poe.ninja/api/Data/GetMapOverview',
                      'unique map': 'https://api.poe.ninja/api/Data/GetUniqueMapOverview',
                      'unique weapon': 'https://api.poe.ninja/api/Data/GetUniqueWeaponOverview',
