@@ -3,18 +3,18 @@ import json
 import time
 
 # <editor-fold desc="Poe.Ninja Api Endpoints">
-poeNinjaEndpoints = {'currency': 'https://api.poe.ninja/api/Data/GetCurrencyOverview',
-                     'map': 'https://api.poe.ninja/api/Data/GetMapOverview',
-                     'unique map': 'https://api.poe.ninja/api/Data/GetUniqueMapOverview',
-                     'unique weapon': 'https://api.poe.ninja/api/Data/GetUniqueWeaponOverview',
-                     'unique armor': 'https://api.poe.ninja/api/Data/GetUniqueArmourOverview',
-                     'unique accessory': 'https://api.poe.ninja/api/Data/GetUniqueAccessoryOverview',
-                     'unique flask': 'https://api.poe.ninja/api/Data/GetUniqueFlaskOverview',
-                     'unique jewel': 'https://api.poe.ninja/api/Data/GetUniqueJewelOverview',
-                     'prophecy': 'https://api.poe.ninja/api/Data/GetProphecyOverview',
-                     'divination card': 'https://api.poe.ninja/api/Data/GetDivinationCardsOverview',
-                     'essence': 'https://api.poe.ninja/api/Data/GetEssenceOverview',
-                     'fragment': 'https://api.poe.ninja/api/Data/GetFragmentOverview',
+poeNinjaEndpoints = {'currency': 'https://poe.ninja/api/Data/GetCurrencyOverview',
+                     'map': 'https://poe.ninja/api/Data/GetMapOverview',
+                     'unique map': 'https://poe.ninja/api/Data/GetUniqueMapOverview',
+                     'unique weapon': 'https://poe.ninja/api/Data/GetUniqueWeaponOverview',
+                     'unique armor': 'https://poe.ninja/api/Data/GetUniqueArmourOverview',
+                     'unique accessory': 'https://poe.ninja/api/Data/GetUniqueAccessoryOverview',
+                     'unique flask': 'https://poe.ninja/api/Data/GetUniqueFlaskOverview',
+                     'unique jewel': 'https://poe.ninja/api/Data/GetUniqueJewelOverview',
+                     'prophecy': 'https://poe.ninja/api/Data/GetProphecyOverview',
+                     'divination card': 'https://poe.ninja/api/Data/GetDivinationCardsOverview',
+                     'essence': 'https://poe.ninja/api/Data/GetEssenceOverview',
+                     'fragment': 'https://poe.ninja/api/Data/GetFragmentOverview',
                      'next id': 'https://poe.ninja/api/Data/GetStats'
                      }
 # </editor-fold>
